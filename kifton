@@ -428,12 +428,12 @@
       </div>
 
       <div class="grid">
-        <!-- Kifton -->
+        <!-- Kiftton -->
         <article class="person card reveal tilt" aria-label="Team member Kifton">
           <div class="avatar">
-            <img src="kifton.jpg" alt="Kifton portrait" style="width:100%; height:100%; object-fit:cover;">
+            <img src="kifton.jpg" alt="Kiftton portrait" style="width:100%; height:100%; object-fit:cover;">
           </div>
-          <h3 style="margin:8px 0 4px;">Kifton</h3>
+          <h3 style="margin:8px 0 4px;">Kiftton</h3>
           <div class="role">Chief Executive Officer & Co‑Owner</div>
           <p class="bio">Founder and creative lead. Sets strategy, greenlights features, and keeps the bar high for quality and fun.</p>
         </article>
