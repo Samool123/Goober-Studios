@@ -1,0 +1,521 @@
+<head>
+  <!-- Meta -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Goober Studios — Crafting Unique Roblox Experiences</title>
+  <link rel="icon" type="image/png" href="yas.png">
+  <meta name="description" content="Goober Studios builds unique, immersive Roblox experiences. Meet the team and see what we're working on." />
+  <meta name="theme-color" content="#2B0F3A" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght...
+
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Brand */
+      --bg:#0C0612;
+      --bg-2:#12081A;
+      --purple:#2B0F3A;
+      --red:#8B1E3F;
+      --green:#4EF37B;
+      --ink:#EDE8F5;
+      --muted:#B8AFC7;
+
+      /* FX */
+      --glow:#4EF37B;
+      --glass: rgba(255,255,255,.06);
+      --glass-2: rgba(255,255,255,.035);
+      --border: rgba(255,255,255,.10);
+      --shadow-1: 0 10px 40px rgba(0,0,0,.45);
+      --shadow-2: 0 20px 60px rgba(0,0,0,.55);
+      --ring: 0 0 0 3px rgba(78,243,123,.18);
+
+      /* Layout */
+      --maxw: 1200px;
+      --radius: 16px;
+      --gap: 24px;
+
+      /* Motion */
+      --ts: 220ms cubic-bezier(.22,1,.36,1);
+      --ts2: 420ms cubic-bezier(.16,.84,.44,1);
+    }
+
+    /* Reset */
+    *,*::before,*::after{ box-sizing: border-box; }
+    html,body{ margin:0; padding:0; }
+    body{
+      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,'Helvetica Neue',Arial,sans-serif;
+      color:var(--ink);
+      background: radial-gradient(1200px 800px at 90% -10%, rgba(78,243,123,.06), transparent 60%),
+                  radial-gradient(900px 900px at -10% 10%, rgba(139,30,63,.20), transparent 60%),
+                  linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 80%);
+      min-height:100svh;
+      overflow-x:hidden;
+    }
+    img{ display:block; max-width:100%; height:auto; }
+    a{ color:inherit; text-decoration:none; }
+    button{ font:inherit; }
+
+    /* Ambient noise + vignette */
+    body::before, body::after{
+      content:"";
+      position:fixed; inset:0; pointer-events:none; z-index:-1;
+    }
+    body::before{
+      background: url('data:image/svg+xml;utf8,\
+      <svg xmlns="http://www.w3.org/2000/svg" width=\'128\' height=\'128\' viewBox=\'0 0 128 128\'>\
+      <filter id=\'n\'>\
+        <feTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'3\' stitchTiles=\'stitch\'/>\
+        <feColorMatrix type=\'saturate\' values=\'0\'/>\
+        <feComponentTransfer><feFuncA type=\'table\' tableValues=\'0 0 0 .04 .08 .04 0 0\'/></feComponentTransfer>\
+      </filter>\
+      <rect width=\'100%\' height=\'100%\' filter=\'url(%23n)\'/>\
+      </svg>') repeat;
+      opacity:.32;
+      mix-blend-mode: soft-light;
+    }
+    body::after{
+      background: radial-gradient(1000px 700px at 50% 120%, rgba(0,0,0,.65), transparent 60%),
+                  radial-gradient(1200px 800px at -20% -10%, rgba(0,0,0,.55), transparent 60%);
+    }
+
+    /* Utilities */
+    .container{ max-width:var(--maxw); margin:0 auto; padding:0 20px; }
+    .grid{ display:grid; gap:var(--gap); }
+    .card{
+      background: linear-gradient(180deg, var(--glass), var(--glass-2));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow-1);
+    }
+    .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:999px; font-size:.82rem; color:var(--muted);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+    }
+
+    /* Buttons */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:12px 18px; border-radius:12px; border:2px solid transparent;
+      cursor:pointer; font-weight:600; transition: transform var(--ts), box-shadow var(--ts), background var(--ts), color var(--ts), border-color var(--ts);
+      will-change: transform;
+    }
+    .btn:active{ transform: translateY(1px) scale(.99); }
+
+    .btn-primary{
+      background:var(--green); color:#0B0E0C;
+      box-shadow: 0 10px 30px rgba(78,243,123,.22), inset 0 0 0 1px rgba(0,0,0,.06);
+    }
+    .btn-primary:hover{ box-shadow: 0 14px 40px rgba(78,243,123,.28), inset 0 0 0 1px rgba(0,0,0,.10); }
+
+    .btn-ghost{
+      background: transparent; color:var(--ink); border-color: var(--red);
+    }
+    .btn-ghost:hover{ background: rgba(139,30,63,.18); }
+
+    .btn-glow{
+      position:relative; overflow:hidden; isolation:isolate;
+    }
+    .btn-glow::after{
+      content:""; position:absolute; inset:-2px; border-radius:12px; z-index:-1;
+      background: conic-gradient(from 0deg, rgba(78,243,123,.0), rgba(78,243,123,.35), rgba(78,243,123,.0) 40%);
+      filter: blur(14px); opacity:.6; transition: opacity var(--ts);
+    }
+    .btn-glow:hover::after{ opacity:1; }
+
+    /* Header */
+    header.site-header{
+      position:sticky; top:0; z-index:50;
+      background: linear-gradient(180deg, rgba(12,6,18,.9), rgba(12,6,18,.45) 60%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .nav{ display:flex; align-items:center; justify-content:space-between; padding:14px 0; }
+    .brand{ display:flex; align-items:center; gap:12px; }
+    .brand img{ width:44px; height:44px; border-radius:12px; border:1px solid rgba(255,255,255,.10); box-shadow: 0 8px 24px rgba(0,0,0,.35); }
+    .brand .name{ font-weight:700; letter-spacing:.25px; }
+
+    .nav-links{ display:flex; align-items:center; gap:10px; }
+    .nav-links a{
+      padding:10px 12px; border-radius:10px; color:var(--muted);
+      transition: color var(--ts), background var(--ts);
+    }
+    .nav-links a:hover{ color:var(--ink); background: rgba(255,255,255,.06); }
+    .nav-cta{ display:flex; align-items:center; gap:10px; }
+    .mobile-toggle{ display:none; background:transparent; border:none; color:var(--ink); font-size:1.4rem; }
+
+    /* Mobile menu panel */
+    .mobile-panel{
+      display:none; margin-top:10px; overflow:hidden;
+      transform-origin: top center;
+    }
+    .mobile-panel.open{ display:block; animation: panelIn var(--ts2); }
+    @keyframes panelIn{
+      from{ opacity:0; transform: translateY(-6px) scaleY(.98); }
+      to{ opacity:1; transform: none; }
+    }
+
+    /* Hero */
+    .hero{
+      position:relative; overflow:hidden;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .hero .wrap{ text-align:center; padding:108px 0 84px; }
+    .kicker{
+      display:inline-flex; align-items:center; gap:10px; color:var(--green); font-weight:700;
+      background: rgba(78,243,123,.08); border:1px solid rgba(78,243,123,.35);
+      padding:8px 12px; border-radius:999px;
+      box-shadow: inset 0 0 30px rgba(78,243,123,.08);
+    }
+    .hero h1{ font-size: clamp(2.2rem, 4.2vw, 3.6rem); margin:16px 0 10px; line-height:1.08; }
+    .hero p{ color:var(--muted); max-width:760px; margin:0 auto 26px; }
+    .hero .cta-row{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+
+    /* Decorative hero art */
+    .hero::before, .hero::after{
+      content:""; position:absolute; inset: -30% -10% auto -10%; height:120%;
+      background: radial-gradient(closest-side, rgba(139,30,63,.28), transparent 65%);
+      filter: blur(22px);
+      transform: rotate(-10deg);
+      pointer-events:none;
+    }
+    .hero::after{
+      inset: auto -10% -30% -10%;
+      background: radial-gradient(closest-side, rgba(78,243,123,.16), transparent 70%);
+      transform: rotate(8deg);
+    }
+
+    /* Sections */
+    section{ padding:72px 0; }
+    .section-head{ display:flex; align-items:end; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-bottom:28px; }
+    .section-head h2{ margin:0; font-size: clamp(1.4rem, 2.6vw, 2.1rem); }
+    .section-head p{ margin:0; color:var(--muted); max-width:720px; }
+
+    /* About */
+    .about .wrap{ display:grid; grid-template-columns: 1.1fr .9fr; gap:var(--gap); align-items:center; }
+    .panel{ padding:24px; position:relative; overflow:hidden; }
+    .panel::after{
+      content:""; position:absolute; inset:-20%; pointer-events:none;
+      background: radial-gradient(closest-side, rgba(78,243,123,.10), transparent 60%),
+                  radial-gradient(closest-side, rgba(139,30,63,.18), transparent 60%);
+      filter: blur(16px);
+      opacity:.7;
+    }
+    .illus{
+      display:grid; place-items:center; min-height:300px; overflow:hidden; position:relative;
+    }
+    .illus .badge{
+      display:inline-flex; align-items:center; gap:10px; color:var(--muted);
+      padding:8px 12px; border-radius:999px; border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+    }
+    .illus .orb{
+      position:absolute; width:380px; height:380px; border-radius:50%;
+      background: radial-gradient(circle at 60% 40%, rgba(78,243,123,.28), rgba(43,15,58,.85) 60%, rgba(0,0,0,.8) 100%);
+      filter: blur(10px);
+      box-shadow: inset 0 0 80px rgba(0,0,0,.35), 0 30px 120px rgba(78,243,123,.16);
+      animation: float 9s ease-in-out infinite;
+    }
+    @keyframes float{
+      0%,100%{ transform: translateY(-6px) rotate(0deg); }
+      50%{ transform: translateY(8px) rotate(4deg); }
+    }
+
+    /* Our Work */
+    .work .board{
+      display:grid; grid-template-columns: 1.2fr .8fr; gap:var(--gap);
+    }
+    .work .status{
+      padding:24px; text-align:center; position:relative; overflow:hidden;
+    }
+    .work .status .pulse{
+      position:absolute; inset:-40%; pointer-events:none; border-radius:50%;
+      background: radial-gradient(circle, rgba(78,243,123,.10), transparent 60%);
+      animation: pulse 3.2s ease-in-out infinite;
+    }
+    @keyframes pulse{
+      0%,100%{ transform: scale(.95); opacity:.7; }
+      50%{ transform: scale(1.05); opacity:1; }
+    }
+    .list{ display:grid; gap:12px; }
+    .list .row{
+      display:flex; align-items:center; gap:10px; padding:12px 14px; border-radius:12px;
+      background: rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06);
+    }
+    .list .dot{
+      width:10px; height:10px; border-radius:50%; background: var(--green); box-shadow: 0 0 0 4px rgba(78,243,123,.18);
+    }
+
+    /* Team */
+    .team .grid{ grid-template-columns: repeat(2, minmax(240px, 1fr)); }
+    .person{ text-align:center; padding:22px; transition: transform var(--ts), box-shadow var(--ts), border-color var(--ts); position:relative; overflow:hidden; }
+    .person:hover{ transform: translateY(-4px); box-shadow: var(--shadow-2); border-color: rgba(78,243,123,.30); }
+    .avatar{
+      width:110px; height:110px; border-radius:26px; margin:4px auto 14px; overflow:hidden; background:#1B1023;
+      border:1px solid rgba(255,255,255,.10); position:relative;
+    }
+    .avatar::after{
+      content:""; position:absolute; inset:0; pointer-events:none;
+      background: radial-gradient(60% 60% at 40% 20%, rgba(255,255,255,.10), transparent 60%);
+      mix-blend-mode: screen;
+    }
+    .role{ color:var(--green); font-weight:700; font-size:.98rem; letter-spacing:.2px; }
+    .bio{ color:var(--muted); font-size:.96rem; }
+
+  
+    /* Tilt effect base */
+    .tilt{ transform-style: preserve-3d; perspective: 800px; will-change: transform; }
+    .tilt .tilt-raise{ transform: translateZ(30px); }
+
+    /* Reveal on scroll */
+    .reveal{ opacity:0; transform: translateY(14px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.show{ opacity:1; transform: none; }
+
+    /* Responsive */
+    @media (max-width: 1024px){
+      .about .wrap{ grid-template-columns: 1fr; }
+      .work .board{ grid-template-columns: 1fr; }
+      .team .grid{ grid-template-columns: 1fr 1fr; }
+      .cta-box{ grid-template-columns: 1fr; }
+      .footer-wrap{ grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px){
+      .nav-links{ display:none; }
+      .mobile-toggle{ display:block; }
+      .team .grid{ grid-template-columns: 1fr; }
+      .footer-wrap{ grid-template-columns: 1fr; }
+      .hero .wrap{ padding:96px 0 70px; }
+    }
+
+    /* Accessibility: reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      *{ animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container nav" role="navigation" aria-label="Main">
+      <a class="brand" href="#top">
+        <img src="logo.png" alt="Goober Studios logo">
+        <span class="name">Goober Studios</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#work">Our Work</a>
+        <a href="#about">About</a>
+        <a href="#team">Team</a>
+      </nav>
+      <div class="nav-cta">
+    
+        <button class="mobile-toggle" aria-label="Open menu" aria-expanded="false">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile menu -->
+  <div id="mobileMenu" class="container mobile-panel card" role="dialog" aria-modal="false" aria-label="Mobile navigation">
+    <nav style="display:grid; gap:8px; padding:14px;">
+      <a href="#work">Our Work</a>
+      <a href="#about">About</a>
+      <a href="#team">Team</a>
+      <a href="#join">Join</a>
+    </nav>
+  </div>
+
+  <!-- Hero -->
+  <section id="top" class="hero">
+    <div class="container wrap">
+      <span class="kicker">Crafting unique Roblox experiences</span>
+      <h1>Goober Studios</h1>
+      <p>We design, animate, and prepare immersive Roblox experiences with heart. From concept to future launch, our focus is creativity, polish, and community.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary btn-glow" href="#work">See our work</a
+        >
+      </div>
+    </div>
+  </section>
+  <!-- Our Work -->
+  <section id="work" class="work">
+    <div class="container">
+      <div class="section-head">
+        <h2>Our work</h2>
+        <p>We’re focused on high‑quality animations, assets, and systems for future Roblox experiences. No public games yet — foundation first, then fireworks.</p>
+      </div>
+
+      <div class="board">
+        <div class="status card reveal tilt" style="min-height:220px;">
+          <div class="pulse" aria-hidden="true"></div>
+          <h3 style="margin:6px 0 8px;">Current focus</h3>
+          <p style="color:var(--muted); max-width:56ch; margin:0 auto 14px;">
+            Character rigs, movement polish, interaction systems, and environmental animation passes. Building for flexibility and speed.
+          </p>
+          <div style="display:flex; gap:8px; justify-content:center; flex-wrap:wrap;">
+            <span class="tag">Rigging</span>
+            <span class="tag">Motion</span>
+            <span class="tag">Tools</span>
+            <span class="tag">Effects</span>
+          </div>
+        </div>
+
+        <div class="card reveal tilt" style="padding:20px;">
+          <h3 style="margin:6px 0 12px;">Roadmap snapshot</h3>
+          <div class="list">
+            <div class="row"><span class="dot"></span>Sprinting Animations</div>
+            <div class="row"><span class="dot"></span>Falling Animations</div>
+            <div class="row"><span class="dot"></span>Damage Animations</div>
+            <div class="row"><span class="dot"></span>Idle & Emote Loops</div>
+          </div>
+          <div style="margin-top:16px; color:var(--muted); font-size:.95rem;">
+            👑 Stay tuned, we'll release something when we <strong>know</strong> it's ready!
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+    <!-- About -->
+  <section id="about" class="about">
+    <div class="container">
+      <div class="section-head">
+        <h2>About Goober Studios</h2>
+        <p>Started by a teenage developer with a passion for animation, Goober Studios is a small creative team exploring the possibilities of Roblox design. We focus on expressive movement, stylized visuals, and learning through feedback — always building, testing, and improving.</p>
+      </div>
+
+      <div class="wrap">
+        <div class="panel card reveal tilt">
+          <div class="meta" style="margin-bottom:14px; display:flex; gap:8px; flex-wrap:wrap;">
+            <span class="tag">Animation-first</span>
+            <span class="tag">Stylised art</span>
+            <span class="tag">Community-led</span>
+          </div>
+          <h3 style="margin:0 0 10px;">Our approach</h3>
+          <p style="color:var(--muted);">We iterate fast, share early, and refine through real feedback. Every asset — whether it’s an animation, skin, or system — earns its place by making the experience more expressive, more playable, or more satisfying.</p>
+          <ul style="margin:16px 0 0; padding-left:18px; color:var(--muted); line-height:1.7;">
+            <li><strong>Playtesting:</strong> We validate core loops and visual feedback with trusted testers and community input. </li>
+            <li><strong>Art Direction:</strong> Our style blends dark, moody palettes with neon accents and clean UI — designed for clarity and punch.</li>
+            <li><strong>Foundation Building:</strong> We develop reusable tools, pipelines, and modular assets to support rapid iteration and future scalability.</li>
+          </ul>
+        </div>
+
+        <div class="illus card reveal tilt" aria-hidden="true">
+          <div class="orb" aria-hidden="true"></div>
+          <div class="tilt-raise" style="display:grid; place-items:center; gap:12px; text-align:center; padding:28px;">
+            <img src="logo.png" alt="" style="width:120px; filter: drop-shadow(0 10px 24px rgba(78,243,123,.22)); opacity:.96;">
+            <span class="badge">Goober pipeline • pre‑production • polish</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- Team -->
+  <section id="team" class="team">
+    <div class="container">
+      <div class="section-head">
+        <h2>Meet the team</h2>
+        <p>A small, focused team combining creative vision with technical precision to bring immersive worlds to life.</p>
+      </div>
+
+      <div class="grid">
+        <!-- Kifton -->
+        <article class="person card reveal tilt" aria-label="Team member Kifton">
+          <div class="avatar">
+            <img src="kifton.jpg" alt="Kifton portrait" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <h3 style="margin:8px 0 4px;">Kifton</h3>
+          <div class="role">Chief Executive Officer & Co‑Owner</div>
+          <p class="bio">Founder and creative lead. Sets strategy, greenlights features, and keeps the bar high for quality and fun.</p>
+        </article>
+
+        <!-- samuel_787 -->
+        <article class="person card reveal tilt" aria-label="Team member samuel_787">
+          <div class="avatar">
+            <img src="samuel_787.jpg" alt="samuel_787 portrait" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <h3 style="margin:8px 0 4px;">samuel_787</h3>
+          <div class="role">Website Development and Management </div>
+<p class="bio">Oversees the design, development, and ongoing management of Goober Studios’ official website.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+
+  
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+  <script>
+    // Mobile menu toggle
+    const toggle = document.querySelector('.mobile-toggle');
+    const menu = document.getElementById('mobileMenu');
+    if (toggle && menu){
+      toggle.addEventListener('click', () => {
+        menu.classList.toggle('open');
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!expanded));
+      });
+      menu.addEventListener('click', e => {
+        if(e.target.tagName === 'A'){ menu.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }
+      });
+    }
+
+    // Scroll reveal
+    const onReveal = (entries, obs) => {
+      for (const entry of entries) {
+        if (entry.isIntersecting){ entry.target.classList.add('show'); obs.unobserve(entry.target); }
+      }
+    };
+    const observer = new IntersectionObserver(onReveal, { threshold:.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // 3D tilt on hover for .tilt cards
+    const tiltEls = document.querySelectorAll('.tilt');
+    tiltEls.forEach(el => {
+      let rect;
+      const maxTilt = 10; // degrees
+      const reset = () => { el.style.transform = 'perspective(800px) rotateX(0) rotateY(0)'; };
+      el.addEventListener('mouseenter', () => { rect = el.getBoundingClientRect(); });
+      el.addEventListener('mousemove', (e) => {
+        const x = e.clientX - rect.left, y = e.clientY - rect.top;
+        const rx = ((y / rect.height) - 0.5) * -2 * maxTilt;
+        const ry = ((x / rect.width) - 0.5) * 2 * maxTilt;
+        el.style.transform = `perspective(800px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;
+      });
+      el.addEventListener('mouseleave', () => { reset(); });
+      reset();
+    });
+
+    // Magnetic hover for primary buttons
+    const magnets = document.querySelectorAll('.btn-primary');
+    magnets.forEach(btn => {
+      btn.style.transform = 'translate3d(0,0,0)';
+      btn.addEventListener('mousemove', (e) => {
+        const r = btn.getBoundingClientRect();
+        const relX = e.clientX - r.left - r.width/2;
+        const relY = e.clientY - r.top - r.height/2;
+        btn.style.transform = `translate3d(${relX*0.08}px, ${relY*0.08}px, 0)`;
+      });
+      btn.addEventListener('mouseleave', () => { btn.style.transform = 'translate3d(0,0,0)'; });
+    });
+  </script>
+</body>
+</html>
+<footer>
+  <div class="container" style="text-align:center; padding:20px; color:#B8AFC7; font-size:0.9rem;">
+    © 2025 Goober Studios. All rights reserved.
+  </div>
+</footer>
